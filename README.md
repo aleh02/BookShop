@@ -32,15 +32,8 @@ Spring Boot REST API for managing authors, publishers, and books.
 - Collection file: `postman-bookshop-full-tests.postman_collection.json`
 
 ## Database ER Diagram
-Add your ER diagram here.
+<img width="301" height="298" alt="ER Diagram-1" src="https://github.com/user-attachments/assets/e3bac2ad-f409-4f33-9e8a-1853114905b4" />
 
-Option 1: commit an image and reference it below.
-
-```md
-![DB ER Diagram](docs/er-diagram.png)
-```
-
-Option 2: paste/link an external diagram URL.
 
 ---
 
