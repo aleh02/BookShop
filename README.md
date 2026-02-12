@@ -1,6 +1,6 @@
 # Book Shop API
 
-Spring Boot REST API for managing authors, publishers, and books.
+Spring Boot REST API for managing books, authors and publishers.
 
 ## Tech Stack
 - Java 21
