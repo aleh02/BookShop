@@ -33,8 +33,3 @@ Spring Boot REST API for managing authors, publishers, and books.
 
 ## Database ER Diagram
 <img width="301" height="298" alt="ER Diagram-1" src="https://github.com/user-attachments/assets/e3bac2ad-f409-4f33-9e8a-1853114905b4" />
-
-
----
-
-If you want, this README can be extended with endpoint examples and validation/error response samples.
