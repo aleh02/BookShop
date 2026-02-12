@@ -23,13 +23,13 @@ public class AuthorController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public List<AuthorResponse> getAllAuthors() {
         return authorService.getAllAuthors();
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public AuthorResponse createNewAuthor(@Valid @RequestBody AuthorCreateRequest request) {
         return authorService.createNewAuthor(request);
     }
