@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "9eaf3f6f-7a4e-4ec8-b1b1-8f7d3f9518ac",
+    "name": "Book Shop API - Full Tests",
+    "description": "Generated Postman collection with tests for all Book Shop API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "authorId", "value": "" },
+    { "key": "publisherId", "value": "" },
+    { "key": "bookId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1. GET Authors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/authors"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+              "const data = pm.response.json();",
+              "pm.test('Response is an array', function () { pm.expect(Array.isArray(data)).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. POST Author",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Test{{$timestamp}}\",\n  \"lastName\": \"Author\",\n  \"birthDate\": \"1990-01-01\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/authors"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
+              "const data = pm.response.json();",
+              "pm.test('Author has id', function () { pm.expect(data.id).to.be.a('number'); });",
+              "pm.collectionVariables.set('authorId', data.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. GET Publishers",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/publishers"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+              "const data = pm.response.json();",
+              "pm.test('Response is an array', function () { pm.expect(Array.isArray(data)).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. POST Publisher",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Publisher {{$timestamp}}\",\n  \"address\": \"Test Address\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/publishers"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
+              "const data = pm.response.json();",
+              "pm.test('Publisher has id', function () { pm.expect(data.id).to.be.a('number'); });",
+              "pm.collectionVariables.set('publisherId', data.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. GET Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/books"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+              "const data = pm.response.json();",
+              "pm.test('Response is an array', function () { pm.expect(Array.isArray(data)).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. POST Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Test Book {{$timestamp}}\",\n  \"price\": 19,\n  \"pageNum\": 520,\n  \"qty\": 12,\n  \"authorId\": {{authorId}},\n  \"publisherId\": {{publisherId}}\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/books"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
+              "const data = pm.response.json();",
+              "pm.test('Book has id and nested objects', function () {",
+              "  pm.expect(data.id).to.be.a('number');",
+              "  pm.expect(data.author).to.be.an('object');",
+              "  pm.expect(data.publisher).to.be.an('object');",
+              "});",
+              "pm.collectionVariables.set('bookId', data.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. PATCH Book Qty",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"qty\": 99\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/books/{{bookId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+              "const data = pm.response.json();",
+              "pm.test('Qty updated to 99', function () { pm.expect(data.qty).to.eql(99); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. PATCH Publisher Address",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"address\": \"Updated Address {{$timestamp}}\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/publishers/{{publisherId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+              "const data = pm.response.json();",
+              "pm.test('Publisher address updated', function () { pm.expect(data.address).to.include('Updated Address'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. DELETE Book",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/books/{{bookId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 204', function () { pm.response.to.have.status(204); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. DELETE Author",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/authors/{{authorId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 204', function () { pm.response.to.have.status(204); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. DELETE Publisher",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/publishers/{{publisherId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 204', function () { pm.response.to.have.status(204); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. DELETE Missing Author -> 404",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/v1/authors/999999999"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 404', function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13. PATCH Missing Book -> 404",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"qty\": 1\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/books/999999999"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 404', function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
